@@ -16,6 +16,12 @@ public class Cliente extends AbstractEntity {
     @JoinColumn(nullable = true)
     private List<Telefone> telefones;
 
+    @OneToMany
+    @JoinColumn(nullable = true)
+    private List<VideoGame> videogames;
+
+
+
     public String getNome() {
         return nome;
     }

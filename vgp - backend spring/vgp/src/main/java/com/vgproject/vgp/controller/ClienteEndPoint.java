@@ -5,6 +5,8 @@ import com.vgproject.vgp.repository.ClienteRepository;
 import com.vgproject.vgp.repository.TelefoneRepository;
 import com.vgproject.vgp.repository.VideoGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +33,10 @@ public class ClienteEndPoint {
     @Autowired
     public VideoGameRepository videoGameDAO;
 
-    //todos os clientes
+    //todos os clientes (paginação suportada)
     @GetMapping(path = "/all")
-    public ResponseEntity<?> getAll() {
-        ArrayList<Cliente> clientes = (ArrayList<Cliente>) clienteDAO.findAll();
+    public ResponseEntity<?> getAll(Pageable pageable) {
+        Page<Cliente> clientes = (Page<Cliente>) clienteDAO.findAll(pageable);
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 

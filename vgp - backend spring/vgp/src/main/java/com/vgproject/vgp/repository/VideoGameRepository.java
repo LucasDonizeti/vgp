@@ -2,6 +2,8 @@ package com.vgproject.vgp.repository;
 
 import com.vgproject.vgp.model.Cliente;
 import com.vgproject.vgp.model.VideoGame;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
@@ -15,4 +17,5 @@ public interface VideoGameRepository extends CrudRepository<VideoGame, Long> {
 
     @Transactional
     void deleteByCliente(Cliente cliente);
+    Page<VideoGame> findAll(Pageable pageable);
 }
