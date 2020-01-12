@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -69,7 +70,9 @@ public class TelefoneEndPoint {
     //update telefone
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Telefone telefone) {
-        return new ResponseEntity<>(telefoneDAO.save(telefone), HttpStatus.OK);
+        if (telefoneDAO.existsById(telefone.getId()))
+            return new ResponseEntity<>(telefoneDAO.save(telefone), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 

@@ -46,5 +46,11 @@ public class Cliente extends AbstractEntity {
         this.telefones = telefones;
     }
 
+    public List<VideoGame> getVideogames() {
+        return videogames;
+    }
 
+    public void setVideogames(List<VideoGame> videogames) {
+        this.videogames = videogames;
+    }
 }

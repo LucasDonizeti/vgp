@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -58,6 +59,7 @@ public class ClienteEndPoint {
 
     //delete cliente por id
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         if (clienteDAO.existsById(id)) {
             Cliente cliente = clienteDAO.findById(id).get();
@@ -73,6 +75,8 @@ public class ClienteEndPoint {
     //update
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Cliente cliente) {
-        return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.OK);
+        if(clienteDAO.existsById(cliente.getId()))
+            return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
