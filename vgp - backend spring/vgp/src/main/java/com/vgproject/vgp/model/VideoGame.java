@@ -1,5 +1,7 @@
 package com.vgproject.vgp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -14,6 +16,7 @@ public class VideoGame extends AbstractEntity {
     private String cor;
     private Boolean desbloqueado;
     @ManyToOne
+    @JsonIgnore
     private Cliente cliente;
 
     public String getMarca() {

@@ -1,5 +1,7 @@
 package com.vgproject.vgp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,6 +14,7 @@ public class Telefone extends AbstractEntity {
     private String numero;
 
     @ManyToOne
+    @JsonIgnore
     private Cliente cliente;
 
     public String getDdd() {

@@ -45,7 +45,10 @@ public class ClienteEndPoint {
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") Long id) {
         if (clienteDAO.existsById(id)) {
-            return new ResponseEntity<>(clienteDAO.findById(id).get(), HttpStatus.OK);
+            Cliente cliente = clienteDAO.findById(id).get();
+            cliente.setVideogames(videoGameDAO.findByCliente(cliente));
+            cliente.setTelefones(telefoneDAO.findByCliente(cliente));
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
